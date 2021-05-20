@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Route::get('/cities', [App\Http\Controllers\CityController::class, 'index'])->name('cities');
 
-Route::get('/city/{id}', [App\Http\Controllers\CityController::class, 'show']);
+Route::get('/city/{id}', [App\Http\Controllers\CityController::class, 'show'])->name('city');

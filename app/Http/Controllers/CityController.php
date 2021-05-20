@@ -8,11 +8,6 @@ use App\Models\City;
 
 class CityController extends Controller
 {
-    public function getCities()
-    {
-        $cities = City::get('name');
-        dd($cities);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,16 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = ['Tokio', 'Madrid', 'Bogota'];
-
-        $response = Http::get("api.openweathermap.org/data/2.5/weather", [
-            'q' => 'Tokio',
-            'appid' => '8324c7264c1334de2bf480dc64c471c8'
-        ]);
-
-        $data = $response->json();
-
-        return view('cities', ['cities' => $cities, 'data' => $data]);
+        $cities = City::get();
+        return view('cities', ['cities' => $cities]);
     }
 
     /**
@@ -61,9 +48,14 @@ class CityController extends Controller
      */
     public function show($id)
     {
-        $city = City::where('id', '=', $id);
+        $response = Http::get("api.openweathermap.org/data/2.5/weather", [
+            'q' => 'Tokio',
+            'appid' => '8324c7264c1334de2bf480dc64c471c8'
+        ]);
 
-        return view('city', $city);
+        $data = $response->json();
+
+        return view('city', ['data' => $data]);
     }
 
     /**

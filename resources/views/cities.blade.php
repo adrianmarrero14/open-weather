@@ -9,10 +9,15 @@
 <body>
     <h1>Cities</h1>
     <ul>
-            <li>Name: {{ $data['name'] }}</li>
-            <li>Country: {{ $data['sys']['country'] }}</li>
-            <li>Weather: {{ $data['weather'][0]['description'] }}</li>
-        
+        @foreach ($cities as $city)
+            <li>Name: {{ $city->name }}</li>
+            <li>Country: {{ $city->country }}</li>
+            <li>Weather: {{ $city->weather }}</li>
+
+            <a href='{{ url("/city/$city->id") }}'>Detail</a>
+            <br>
+            ----------
+        @endforeach
     </ul>
 </body>
 </html>
