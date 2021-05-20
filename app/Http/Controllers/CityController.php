@@ -48,14 +48,16 @@ class CityController extends Controller
      */
     public function show($id)
     {
+        $city = City::find($id);
+
         $response = Http::get("api.openweathermap.org/data/2.5/weather", [
-            'q' => 'Tokio',
+            'q' => $city->name,
             'appid' => '8324c7264c1334de2bf480dc64c471c8'
         ]);
 
         $data = $response->json();
 
-        return view('city', ['data' => $data]);
+        return view('city', ['city' => $city, 'data' => $data]);
     }
 
     /**
