@@ -9,9 +9,10 @@
 <body>
     <h1>Cities</h1>
     <ul>
-        @foreach ($cities as $city)
-            <li>Name: {{ $city->name }}</li>
-        @endforeach
+            <li>Name: {{ $data['name'] }}</li>
+            <li>Country: {{ $data['sys']['country'] }}</li>
+            <li>Weather: {{ $data['weather'][0]['description'] }}</li>
+        
     </ul>
 </body>
 </html>
