@@ -51,14 +51,7 @@ class CityController extends Controller
     {
         $city = City::find($id);
 
-        $response = Http::get("api.openweathermap.org/data/2.5/weather", [
-            'q' => $city->name,
-            'appid' => AuthServiceProvider::KEY
-        ]);
-
-        $data = $response->json();
-
-        return view('city', ['city' => $city, 'data' => $data]);
+        return view('city', ['city' => $city]);
     }
 
     /**

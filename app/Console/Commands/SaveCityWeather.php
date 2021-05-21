@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Providers\AuthServiceProvider;
+use Illuminate\Support\Facades\Http;
+use App\Models\City;
 
 class SaveCityWeather extends Command
 {
@@ -39,15 +42,28 @@ class SaveCityWeather extends Command
     {
         $city = $this->argument('city');
 
-        if (!$city) {
-            $this->info("All cities updated");
+        if (!$city || $city == '*') {
+            $citiesDB = City::get();
+
+            foreach ($citiesDB as $cityDB) {
+
+                // API Request
+                $response = Http::get("api.openweathermap.org/data/2.5/weather", [
+                    'q' => $cityDB->name,
+                    'appid' => AuthServiceProvider::KEY
+                ]);
+                $data = $response->json();
+
+                // Update DB content
+                $cityDB->country = $data['sys']['country'];
+                $cityDB->weather = $data['weather'][0]['main'];
+                $cityDB->weather_description = $data['weather'][0]['description'];
+                $cityDB->save();
+            }
+            $this->info("Clima de ciudades actualizado correctamente");
+        } else {
+            $this->error("El parametro ingresado es incorrecto");
         }
-
-        if ($city == 'bogota') {
-            $this->info("Bogotá actualizado correctamente");
-        }
-
-
 
         return 0;
     }

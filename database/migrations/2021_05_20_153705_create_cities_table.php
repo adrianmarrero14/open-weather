@@ -17,9 +17,9 @@ class CreateCitiesTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('country');
-            $table->string('weather');
-            $table->string('weather_description');
+            $table->string('country')->nullable();
+            $table->string('weather')->nullable();
+            $table->string('weather_description')->nullable();
 
             $table->timestamps();
         });

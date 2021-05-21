@@ -23,10 +23,7 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->state(),
-            'country' => $this->faker->country(),
-            'weather' => $this->faker->word(),
-            'weather_description' => $this->faker->sentence(6),
+            'name' => 'Tokio',
         ];
     }
 }
