@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\City;
+use App\Providers\AuthServiceProvider;
 
 class CityController extends Controller
 {
@@ -52,7 +53,7 @@ class CityController extends Controller
 
         $response = Http::get("api.openweathermap.org/data/2.5/weather", [
             'q' => $city->name,
-            'appid' => '8324c7264c1334de2bf480dc64c471c8'
+            'appid' => AuthServiceProvider::KEY
         ]);
 
         $data = $response->json();
